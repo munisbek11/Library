@@ -41,6 +41,9 @@ const authorSchemas = new Schema(
       required: true,
       minlength: 6,
       maxlength: 400
+    },
+    image: {
+      type: String
     }
   },
   {

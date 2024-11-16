@@ -21,6 +21,8 @@ const addAuthor = async (req, res, next) => {
       works,
     } = req.body;
 
+    const image = req.file ? req.file.path : null;
+
     await AuthorsSchemas.create({
       first_name,
       last_name,
@@ -29,6 +31,7 @@ const addAuthor = async (req, res, next) => {
       country,
       bio,
       works,
+      image,
     });
     res.json({
       message: "Added new author",

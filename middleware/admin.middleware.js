@@ -14,8 +14,7 @@ const checkAdmin = async (req, res, next) => {
     req.email = decoded;
 
     if (req.email.role !== "admin") {
-      return res.status(403).send({
-        status: 403,
+      return res.json({
         message: "You are not admin",
       });
     }

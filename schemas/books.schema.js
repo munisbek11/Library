@@ -27,7 +27,7 @@ const bookSchemas = new Schema(
       required: true,
       minlength: [30, "30 Harfdan ko'proq kiriting!"],
     },
-    gebre: {
+    genre: {
       type: String,
       required: true,
       enum: {

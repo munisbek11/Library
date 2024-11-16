@@ -32,11 +32,13 @@ const registerSchemas = new Schema(
       type: String,
       required: true,
     },
-    role:{
-      type: String,      
+    role: {
+      type: String,
       required: true,
-      default: "user"
+      default: "user",
+      enum: ["user", "admin"]
     }
+    
   },
   {
     versionKey: false,

@@ -17,10 +17,11 @@ const addBook = async (req, res, next) => {
       rate,
       page,
       publish,
-      gebre,
+      genre,
       publishHome,
       description,
-      author_info
+      author_info,
+      era
     } = req.body;
 
     await BooksSchemas.create({
@@ -29,10 +30,11 @@ const addBook = async (req, res, next) => {
       rate,
       page,
       publish,
-      gebre,
+      genre,
       publishHome,
       description,
-      author_info
+      author_info,
+      era
     });
     res.json({
       message: "Added new book",
@@ -51,10 +53,11 @@ const updateBook = async (req, res, next) => {
       rate,
       page,
       publish,
-      gebre,
+      genre,
       publishHome,
       description,
-      author_info
+      author_info,
+      era
     } = req.body;
 
     const foundedBook = await BooksSchemas.findById(id);
@@ -72,10 +75,11 @@ const updateBook = async (req, res, next) => {
         rate,
         page,
         publish,
-        gebre,
+        genre,
         publishHome,
         description,
-        author_info
+        author_info,
+        era
       },
       { new: true }
     );

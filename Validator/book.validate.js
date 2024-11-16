@@ -1,10 +1,10 @@
-const joi = require("joi")
+const Joi = require("joi")
 
 
 
 exports.bookValidator = function (data) {
     try{
-        const schema = joi.object({
+        const schema = Joi.object({
             
           title: Joi.string().required(),
           author: Joi.string().required(),

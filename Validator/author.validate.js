@@ -1,10 +1,10 @@
-const joi = require("joi")
+const Joi = require("joi")
 
 
 
 exports.authorValidator = function (data) {
     try{
-        const schema = joi.object({
+        const schema = Joi.object({
 
           first_name: Joi.string().min(3).max(15).required(),
           last_name: Joi.string().min(3).max(15).required(),

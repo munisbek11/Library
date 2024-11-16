@@ -2,7 +2,7 @@ const { Schema, model } = require("mongoose");
 
 const authorSchemas = new Schema(
   {
-    frist_name: {
+    first_name: {
       type: String,
       required: true,
       minlength: 3,

@@ -3,7 +3,7 @@ authorValidator,
 } = require("../Validator/author.validate");
 
 
-exports.authorValidate = function (req, res, next) {
+module.exports.authorValidate = function (req, res, next) {
     try {
         const { error } = authorValidator(req.body);
         if (error) {

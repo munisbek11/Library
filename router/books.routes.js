@@ -17,6 +17,6 @@ bookRouter.get("/get_one_book/:id", getOneBook);
 bookRouter.get("/search/:title", search);
 bookRouter.post("/add_book", bookValidate, checkAdmin, addBook);
 bookRouter.put("/update_book/:id", bookValidate, checkAdmin, updateBook);
-bookRouter.delete("/delete_book/:id",checkAdmin, deleteBook);
+bookRouter.delete("/delete_book/:id",bookValidate, checkAdmin, deleteBook);
 
 module.exports = bookRouter;

@@ -2,7 +2,7 @@ const {
     bookValidator,
     } = require("../Validator/book.validate");
     
-exports.bookValidate = function (req, res, next) {
+module.exports.bookValidate = function (req, res, next) {
         try {
             const { error } = bookValidator(req.body);
             if (error) {

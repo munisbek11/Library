@@ -6,25 +6,25 @@ const authorSchemas = new Schema(
       type: String,
       required: true,
       minlength: 3,
-      maxlength: 15
+      maxlength: 15,
     },
     last_name: {
       type: String,
       required: true,
       minlength: 3,
-      maxlength: 15
+      maxlength: 15,
     },
     date_of_birth: {
       type: Number,
       required: true,
       minlength: 2,
-      maxlength:4
+      maxlength: 4,
     },
-    day_of_death: {
+    date_of_death: {
       type: Number,
       required: true,
       minlength: 2,
-      maxlength:4
+      maxlength: 4,
     },
     country: {
       type: String,
@@ -34,21 +34,18 @@ const authorSchemas = new Schema(
       type: String,
       required: true,
       minlength: 5,
-      maxlength: 100
+      maxlength: 100,
     },
-    works:{
+    works: {
       type: String,
       required: true,
       minlength: 6,
-      maxlength: 400
+      maxlength: 400,
     },
-    image: {
-      type: String
-    }
   },
   {
     versionKey: false,
-    timestamps: true
+    timestamps: true,
   }
 );
 

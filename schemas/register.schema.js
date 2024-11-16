@@ -18,11 +18,11 @@ const registerSchemas = new Schema(
       type: Number,
       required: true,
       validate: {
-        validator: function(value) {
+        validator: function (value) {
           return value.toString().length <= 9;
         },
-        message: " Telefon raqami 8 ta raqamdan oshmasligi kerak"
-      }
+        message: " Telefon raqami 8 ta raqamdan oshmasligi kerak",
+      },
     },
     email: {
       type: String,
@@ -36,9 +36,8 @@ const registerSchemas = new Schema(
       type: String,
       required: true,
       default: "user",
-      enum: ["user", "admin"]
-    }
-    
+      enum: ["user", "admin"],
+    },
   },
   {
     versionKey: false,

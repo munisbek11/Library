@@ -21,7 +21,7 @@ const registerSchemas = new Schema(
         validator: function (value) {
           return value.toString().length <= 9;
         },
-        message: " Telefon raqami 8 ta raqamdan oshmasligi kerak",
+        message: " Telefon raqami 9 ta raqamdan oshmasligi kerak",
       },
     },
     email: {
@@ -37,6 +37,13 @@ const registerSchemas = new Schema(
       required: true,
       default: "user",
       enum: ["user", "admin"],
+    },
+    verify_code: {
+      type: String,
+    },
+    verify: {
+      type: Boolean,
+      default: false
     },
   },
   {

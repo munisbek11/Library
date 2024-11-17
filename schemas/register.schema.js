@@ -40,6 +40,8 @@ const registerSchemas = new Schema(
     },
     verify_code: {
       type: String,
+      minlength: 6,
+      maxlength: 6
     },
     verify: {
       type: Boolean,

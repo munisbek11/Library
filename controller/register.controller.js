@@ -85,7 +85,7 @@ const verify = async (req,res, next) => {
       });
     }
 
-    if(foundUser.verify_code === verify_code_by_client){
+    if(foundUser.verify_code === verify_code_by_client && verify_code_by_client ===! ""){
       await RegisterSchemas.findByIdAndUpdate(foundUser._id, {verify:true})
 
       const token = jwt.sign(

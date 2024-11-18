@@ -1,4 +1,5 @@
 const { Schema, model } = require("mongoose");
+const CommensSchemas = require("../schemas/comment.schema")
 
 const bookSchemas = new Schema(
   {
@@ -69,7 +70,11 @@ const bookSchemas = new Schema(
         message: "{VALUE} bunday davr mavjud emas!",
       },
     },
-    comments: [{ type: Schema.Types.ObjectId, ref: "comment" }] 
+    comment: [{
+      type: Schema.Types.ObjectId,
+      ref: 'comment',
+      required: true
+    }]
   },
   {
     versionKey: false,

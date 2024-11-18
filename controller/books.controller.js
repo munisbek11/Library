@@ -1,11 +1,12 @@
 const BooksSchemas = require("../schemas/books.schema");
+const CommensSchemas = require("../schemas/comment.schema");
 
 const getBooks = async (req, res, next) => {
   try {
     const books = await BooksSchemas.find().populate(
       "author_info",
-      "-placeOfBirth -works -_id -DayOfDied -creativity -dateOfBirth"
-    );
+      "-date_of_birth -bio -_id -DayOfDied -updatedAt -createdAt -date_of_death -works -country"
+    ).populate("comment");
 
     res.json(books);
   } catch (err) {
@@ -26,6 +27,7 @@ const addBook = async (req, res, next) => {
       description,
       author_info,
       era,
+      comment
     } = req.body;
 
     await BooksSchemas.create({
@@ -39,6 +41,7 @@ const addBook = async (req, res, next) => {
       description,
       author_info,
       era,
+      comment
     });
     res.json({
       message: "Added new book",
@@ -62,6 +65,7 @@ const updateBook = async (req, res, next) => {
       description,
       author_info,
       era,
+      comment
     } = req.body;
 
     const foundedBook = await BooksSchemas.findById(id);
@@ -84,6 +88,7 @@ const updateBook = async (req, res, next) => {
         description,
         author_info,
         era,
+        comment
       },
       { new: true }
     );

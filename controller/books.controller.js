@@ -2,7 +2,11 @@ const BooksSchemas = require("../schemas/books.schema");
 
 const getBooks = async (req, res, next) => {
   try {
-    const books = await BooksSchemas.find().populate("author_info", "-placeOfBirth -works -_id -DayOfDied -creativity -dateOfBirth");
+    const books = await BooksSchemas.find().populate(
+      "author_info",
+      "-placeOfBirth -works -_id -DayOfDied -creativity -dateOfBirth"
+    );
+
     res.json(books);
   } catch (err) {
     next(err);
@@ -21,7 +25,7 @@ const addBook = async (req, res, next) => {
       publishHome,
       description,
       author_info,
-      era
+      era,
     } = req.body;
 
     await BooksSchemas.create({
@@ -34,7 +38,7 @@ const addBook = async (req, res, next) => {
       publishHome,
       description,
       author_info,
-      era
+      era,
     });
     res.json({
       message: "Added new book",
@@ -57,7 +61,7 @@ const updateBook = async (req, res, next) => {
       publishHome,
       description,
       author_info,
-      era
+      era,
     } = req.body;
 
     const foundedBook = await BooksSchemas.findById(id);
@@ -79,7 +83,7 @@ const updateBook = async (req, res, next) => {
         publishHome,
         description,
         author_info,
-        era
+        era,
       },
       { new: true }
     );
@@ -131,10 +135,10 @@ const getOneBook = async (req, res, next) => {
 
 const search = async (req, res, next) => {
   try {
-    const {title} = req.query
+    const { title } = req.query;
     const searchResult = await BooksSchemas.find({
-      title: {$regex: title}
-    })
+      title: { $regex: title },
+    });
     res.json(searchResult);
   } catch (err) {
     next(err);
@@ -147,5 +151,5 @@ module.exports = {
   updateBook,
   deleteBook,
   getOneBook,
-  search
+  search,
 };

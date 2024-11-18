@@ -7,7 +7,8 @@ const cookieParser = require("cookie-parser");
 const authorRouter = require("./router/authors.routes");
 const registerRouter = require("./router/register.routes");
 const path = require("path")
-const multer = require("multer")
+const multer = require("multer");
+const commentRouter = require("./router/comment.routes");
 const app = express();
 app.use(express.json());
 app.use(cors({ origin: true, credentials: true }));
@@ -21,6 +22,7 @@ connectDB()
 app.use(bookRouter);
 app.use(authorRouter);
 app.use(registerRouter)
+app.use(commentRouter)
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 app.listen(PORT, () => {

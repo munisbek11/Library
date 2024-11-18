@@ -6,7 +6,7 @@ const {
   deleteAuthor,
   getOneAuthors,
 } = require("../controller/authors.controller");
-const checkAdmin = require("../middleware/admin.middleware");
+const {checkAdmin} = require("../middleware/admin.middleware");
 const uploadImage = require("../middleware/uploadImage")
 const { authorValidate } = require("../middleware/author.validate.miidleware");
 const authorRouter = Router();

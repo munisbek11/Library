@@ -7,7 +7,7 @@ const {
   getOneBook,
   search,
 } = require("../controller/books.controller");
-const checkAdmin = require("../middleware/admin.middleware");
+const {checkAdmin} = require("../middleware/admin.middleware");
 const { bookValidate } = require("../middleware/book.validate.middleware");
 
 const bookRouter = Router();

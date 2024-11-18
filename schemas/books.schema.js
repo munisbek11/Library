@@ -69,6 +69,7 @@ const bookSchemas = new Schema(
         message: "{VALUE} bunday davr mavjud emas!",
       },
     },
+    comments: [{ type: Schema.Types.ObjectId, ref: "comment" }] 
   },
   {
     versionKey: false,

@@ -3,6 +3,7 @@ const bcryptjs = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const nodemailer = require("nodemailer");
 require("dotenv").config();
+const {generateAccessToken, generateRefreshToken} = require("../utils/tokenGenerate")
 
 const register = async (req, res, next) => {
   try {
@@ -64,9 +65,7 @@ const register = async (req, res, next) => {
       message: "Added new user",
     });
     setTimeout(async () => {
-      await RegisterSchemas.findByIdAndUpdate(userRegister._id, {
-        verify_code: "",
-      });
+      await RegisterSchemas.findByIdAndUpdate(userRegister._id, {verify_code: ""});
     }, 60 * 1000);
   } catch (err) {
     next(err);
@@ -86,19 +85,9 @@ const verify = async (req,res, next) => {
     }
 
     if(foundUser.verify_code === verify_code_by_client && verify_code_by_client ===! ""){
-      await RegisterSchemas.findByIdAndUpdate(foundUser._id, {verify:true})
-
-      const token = jwt.sign(
-        {
-          email: foundUser.email,
-          role: foundUser.role,
-        },
-        process.env.SECRET_KET,
-        { expiresIn: process.env.JWT_TIME }
-      );
+      await RegisterSchemas.findByIdAndUpdate(foundUser._id, {verify:true, verify_code: ""})
       res.json({
         message: "Verify succesfuly",
-        token
       })
     } else{
       res.json({
@@ -132,18 +121,22 @@ const login = async (req, res, next) => {
     }
 
     if (foundUser.verify === true) {
-      const token = jwt.sign(
-        {
-          email: foundUser.email,
-          role: foundUser.role,
-        },
-        process.env.SECRET_KET,
-        { expiresIn: process.env.JWT_TIME }
-      );
+      const AccessToken = generateAccessToken({id: foundUser._id, role: foundUser.role,
+        email: foundUser.email
+      })
+
+      const RefreshToken = generateRefreshToken({id: foundUser._id, role: foundUser.role,
+        email: foundUser.email
+      })
+
+      res.cookie("AccessToken", AccessToken, {httpOnly: true, maxAge: process.env.COOKIE_ACCESS_TIME})
+      res.cookie("RefreshToken", RefreshToken, {httpOnly: true, maxAge: process.env.COOKIE_REFRESH_TIME})
 
       res.json({
         message: "Successfuly",
-        token: token,
+        tokens: {
+          AccessToken: AccessToken
+        }
       });
     }else{
       res.json({

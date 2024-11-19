@@ -156,8 +156,22 @@ const login = async (req, res, next) => {
   }
 };
 
+const logout = (req, res) => {
+  
+  res.clearCookie("AccessToken", { httpOnly: true, secure: true });
+  res.clearCookie("RefreshToken", { httpOnly: true, secure: true });
+
+  res.json({
+    message: "Successfully logged out",
+  });
+};
+
+module.exports = logout;
+
+
 module.exports = {
   register,
   login,
   verify,
+  logout
 };

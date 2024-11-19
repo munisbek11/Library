@@ -5,9 +5,9 @@ const BaseError = require("../utils/BeseError");
 const comment = async (req, res, next) => {
   try {
     const { category, description, like, book_id } = req.body;
-    const { token } = req.headers;
+    const { AccessToken } = req.cookies;
     const foundedBook = await BooksSchemas.findById(book_id);
-    if (token && foundedBook) {
+    if (AccessToken && foundedBook) {
       await CommentsSchemas.create({
         category,
         description,

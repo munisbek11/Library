@@ -9,7 +9,7 @@ const verifyAccessToken = (req, res, next) => {
     });
   }
 
-  jwt(AccessToken, process.env.ACCESS_SECRET_KEY, (err, decoded) => {
+  jwt.sign(AccessToken, process.env.ACCESS_SECRET_KEY, (err, decoded) => {
     if (err) {
       return res.status(403).json({
         message: "Invalid token or token expired, please login again!",

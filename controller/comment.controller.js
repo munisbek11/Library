@@ -1,5 +1,6 @@
 const BooksSchemas = require("../schemas/books.schema");
 const CommentsSchemas = require("../schemas/comment.schema");
+const BaseError = require("../utils/BeseError");
 
 const comment = async (req, res, next) => {
   try {
@@ -17,9 +18,7 @@ const comment = async (req, res, next) => {
         message: "comment added",
       });
     } else {
-      return res.json({
-        message: "invalid token or not founded book",
-      });
+      throw BaseError.BadRequest("invalid token or not founded book");
     }
   } catch (error) {
     next(error);

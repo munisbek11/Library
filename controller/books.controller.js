@@ -1,5 +1,6 @@
 const BooksSchemas = require("../schemas/books.schema");
 const CommensSchemas = require("../schemas/comment.schema");
+const BaseError = require("../utils/BeseError");
 
 const getBooks = async (req, res, next) => {
   try {
@@ -72,9 +73,7 @@ const updateBook = async (req, res, next) => {
 
     const foundedBook = await BooksSchemas.findById(id);
     if (!foundedBook) {
-      return res.json({
-        message: "Book not founded",
-      });
+      throw BaseError.BadRequest("Book not founded");
     }
 
     let result = await BooksSchemas.findByIdAndUpdate(
@@ -110,9 +109,7 @@ const deleteBook = async (req, res, next) => {
 
     const foundedBook = await BooksSchemas.findById(id);
     if (!foundedBook) {
-      return res.json({
-        message: "Book not founded",
-      });
+      throw BaseError.BadRequest("Book not founded");
     }
 
     await BooksSchemas.findByIdAndDelete(id);
@@ -130,9 +127,7 @@ const getOneBook = async (req, res, next) => {
     const { id } = req.params;
     const foundedBook = await BooksSchemas.findById(id);
     if (!foundedBook) {
-      return res.json({
-        message: "Book not founded",
-      });
+      throw BaseError.BadRequest("Book not founded");
     }
     res.json(foundedBook);
   } catch (err) {

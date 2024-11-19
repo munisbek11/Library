@@ -1,12 +1,12 @@
 const RegisterSchemas = require("../schemas/register.schema");
 const bcryptjs = require("bcryptjs");
-const jwt = require("jsonwebtoken");
 const nodemailer = require("nodemailer");
 require("dotenv").config();
 const {
   generateAccessToken,
   generateRefreshToken,
 } = require("../utils/tokenGenerate");
+const BaseError = require("../utils/BeseError");
 
 const register = async (req, res, next) => {
   try {
@@ -16,9 +16,7 @@ const register = async (req, res, next) => {
     const foundUser = await RegisterSchemas.findOne({ email: email });
 
     if (foundUser) {
-      return res.json({
-        message: "User has already registered",
-      });
+      throw BaseError.BadRequest("User has already registered");
     }
 
     const randomNumber = Array.from({ length: 6 }, () =>
@@ -84,9 +82,7 @@ const verify = async (req, res, next) => {
     const foundUser = await RegisterSchemas.findOne({ email: email });
 
     if (!foundUser) {
-      return res.json({
-        message: "User not found",
-      });
+      throw BaseError.BadRequest("User not found!");
     }
 
     if (
@@ -101,9 +97,7 @@ const verify = async (req, res, next) => {
         message: "Verify succesfuly",
       });
     } else {
-      return res.json({
-        message: "Verify code mistake or not exists",
-      });
+      throw BaseError.BadRequest("Verify code mistake or not exists");
     }
   } catch (error) {
     next(error);
@@ -117,17 +111,13 @@ const login = async (req, res, next) => {
     const foundUser = await RegisterSchemas.findOne({ email: email });
 
     if (!foundUser) {
-      return res.json({
-        message: "User not found",
-      });
+      throw BaseError.BadRequest("User not found!");
     }
 
     const decrypt = await bcryptjs.compare(password, foundUser.password);
 
     if (!decrypt) {
-      return res.json({
-        message: "Wrong password",
-      });
+      throw BaseError.BadRequest("Wrong password");
     }
 
     if (foundUser.verify === true) {
@@ -159,22 +149,12 @@ const login = async (req, res, next) => {
         },
       });
     } else {
-      return res.json({
-        message: "You were not verified",
-      });
+      throw BaseError.BadRequest("You were not verified");
     }
   } catch (err) {
     throw new Error(err.message);
   }
 };
-
-const refresh = async (req, res, next) => {
-  try{
-
-  }catch(error){
-    next(error)
-  }
-}
 
 module.exports = {
   register,

@@ -1,5 +1,4 @@
 const { Schema, model } = require("mongoose");
-const CommensSchemas = require("../schemas/comment.schema")
 
 const bookSchemas = new Schema(
   {

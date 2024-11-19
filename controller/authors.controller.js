@@ -1,4 +1,5 @@
 const AuthorsSchemas = require("../schemas/authors.schema");
+const BaseError = require("../utils/BeseError");
 
 const getAuthors = async (req, res, next) => {
   try {
@@ -56,9 +57,7 @@ const updateAuthor = async (req, res, next) => {
 
     const foundedAuthor = await AuthorsSchemas.findById(id);
     if (!foundedAuthor) {
-      return res.json({
-        message: "Author not founded",
-      });
+      throw BaseError.BadRequest("Author not founded");
     }
 
     let result = await AuthorsSchemas.findByIdAndUpdate(
@@ -90,9 +89,7 @@ const deleteAuthor = async (req, res, next) => {
 
     const foundedAuthor = await AuthorsSchemas.findById(id);
     if (!foundedAuthor) {
-      return res.json({
-        message: "Author not founded",
-      });
+      throw BaseError.BadRequest("Author not founded");
     }
 
     await AuthorsSchemas.findByIdAndDelete(id);
@@ -111,9 +108,7 @@ const getOneAuthors = async (req, res, next) => {
 
     const foundedAuthor = await AuthorsSchemas.findById(id);
     if (!foundedAuthor) {
-      return res.json({
-        message: "Author not founded",
-      });
+      throw BaseError.BadRequest("Author not founded");
     }
     const authors = await AuthorsSchemas.findOne({ _id: id });
     res.json(authors);

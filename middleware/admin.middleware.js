@@ -1,22 +1,19 @@
 const jwt = require("jsonwebtoken");
+const BaseError = require("../utils/BeseError");
 require("dotenv").config();
 
 const checkAdmin = async (req, res, next) => {
-  const { token } = req.headers;
+  const { AccessToken } = req.cookies;
 
-  if (!token) {
-    return res.json({
-      message: "Invalid token",
-    });
+  if (!AccessToken) {
+    throw BaseError.BadRequest("Invalid token");
   }
   try {
-    const decoded = jwt.verify(token, process.env.SECRET_KET);
+    const decoded = jwt.verify(AccessToken, process.env.ACCESS_SECRET_KEY);
     req.email = decoded;
 
     if (req.email.role !== "admin") {
-      return res.json({
-        message: "You are not admin",
-      });
+      throw BaseError.BadRequest("You are not admin");
     }
   } catch (err) {
     throw new Error(err.message);
@@ -26,21 +23,17 @@ const checkAdmin = async (req, res, next) => {
 };
 
 const checkUser = async (req, res, next) => {
-  const { token } = req.headers;
+  const { AccessToken } = req.cookies;
 
-  if (!token) {
-    return res.json({
-      message: "Invalid token",
-    });
+  if (!AccessToken) {
+    throw BaseError.BadRequest("Invalid token");
   }
   try {
-    const decoded = jwt.verify(token, process.env.SECRET_KET);
+    const decoded = jwt.verify(AccessToken, process.env.ACCESS_SECRET_KEY);
     req.email = decoded;
 
     if (!req.email.role) {
-      return res.json({
-        message: "You are not admin",
-      });
+      throw BaseError.BadRequest("You are not registred");
     }
   } catch (err) {
     throw new Error(err.message);
@@ -49,4 +42,4 @@ const checkUser = async (req, res, next) => {
   return next();
 };
 
-module.exports =  {checkAdmin, checkUser} ;
+module.exports = { checkAdmin, checkUser };

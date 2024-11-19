@@ -9,6 +9,7 @@ const registerRouter = require("./router/register.routes");
 const path = require("path")
 const multer = require("multer");
 const commentRouter = require("./router/comment.routes");
+const errorMiddleware = require("./middleware/error.middleware");
 const app = express();
 app.use(express.json());
 app.use(cors({ origin: true, credentials: true }));
@@ -24,6 +25,8 @@ app.use(authorRouter);
 app.use(registerRouter)
 app.use(commentRouter)
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
+
+app.use(errorMiddleware)
 
 app.listen(PORT, () => {
   console.log(`Server is running on the port:${PORT}`);

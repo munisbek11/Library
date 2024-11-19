@@ -3,7 +3,10 @@ const bcryptjs = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const nodemailer = require("nodemailer");
 require("dotenv").config();
-const {generateAccessToken, generateRefreshToken} = require("../utils/tokenGenerate")
+const {
+  generateAccessToken,
+  generateRefreshToken,
+} = require("../utils/tokenGenerate");
 
 const register = async (req, res, next) => {
   try {
@@ -41,7 +44,7 @@ const register = async (req, res, next) => {
 
     await transporter.sendMail(sendEmail, (error, info) => {
       if (error) {
-        res.json({
+        return res.json({
           message: error.message,
         });
       } else {
@@ -65,16 +68,18 @@ const register = async (req, res, next) => {
       message: "Added new user",
     });
     setTimeout(async () => {
-      await RegisterSchemas.findByIdAndUpdate(userRegister._id, {verify_code: ""});
+      await RegisterSchemas.findByIdAndUpdate(userRegister._id, {
+        verify_code: "",
+      });
     }, 60 * 1000);
   } catch (err) {
     next(err);
   }
 };
 
-const verify = async (req,res, next) => {
-  try{
-    const {email, verify_code_by_client} = req.body
+const verify = async (req, res, next) => {
+  try {
+    const { email, verify_code_by_client } = req.body;
 
     const foundUser = await RegisterSchemas.findOne({ email: email });
 
@@ -84,21 +89,26 @@ const verify = async (req,res, next) => {
       });
     }
 
-    if(foundUser.verify_code === verify_code_by_client && verify_code_by_client ===! ""){
-      await RegisterSchemas.findByIdAndUpdate(foundUser._id, {verify:true, verify_code: ""})
-      res.json({
+    if (
+      foundUser.verify_code === verify_code_by_client &&
+      verify_code_by_client === !""
+    ) {
+      await RegisterSchemas.findByIdAndUpdate(foundUser._id, {
+        verify: true,
+        verify_code: "",
+      });
+      return res.json({
         message: "Verify succesfuly",
-      })
-    } else{
-      res.json({
-        message: "Verify code mistake or not exists"
-      })
+      });
+    } else {
+      return res.json({
+        message: "Verify code mistake or not exists",
+      });
     }
-
-  }catch(error){
-    next(error)
+  } catch (error) {
+    next(error);
   }
-}
+};
 
 const login = async (req, res, next) => {
   try {
@@ -115,42 +125,59 @@ const login = async (req, res, next) => {
     const decrypt = await bcryptjs.compare(password, foundUser.password);
 
     if (!decrypt) {
-      res.json({
+      return res.json({
         message: "Wrong password",
       });
     }
 
     if (foundUser.verify === true) {
-      const AccessToken = generateAccessToken({id: foundUser._id, role: foundUser.role,
-        email: foundUser.email
-      })
+      const AccessToken = generateAccessToken({
+        id: foundUser._id,
+        role: foundUser.role,
+        email: foundUser.email,
+      });
 
-      const RefreshToken = generateRefreshToken({id: foundUser._id, role: foundUser.role,
-        email: foundUser.email
-      })
+      const RefreshToken = generateRefreshToken({
+        id: foundUser._id,
+        role: foundUser.role,
+        email: foundUser.email,
+      });
 
-      res.cookie("AccessToken", AccessToken, {httpOnly: true, maxAge: process.env.COOKIE_ACCESS_TIME})
-      res.cookie("RefreshToken", RefreshToken, {httpOnly: true, maxAge: process.env.COOKIE_REFRESH_TIME})
+      res.cookie("AccessToken", AccessToken, {
+        httpOnly: true,
+        maxAge: process.env.COOKIE_ACCESS_TIME,
+      });
+      res.cookie("RefreshToken", RefreshToken, {
+        httpOnly: true,
+        maxAge: process.env.COOKIE_REFRESH_TIME,
+      });
 
       res.json({
         message: "Successfuly",
         tokens: {
-          AccessToken: AccessToken
-        }
+          AccessToken: AccessToken,
+        },
       });
-    }else{
-      res.json({
+    } else {
+      return res.json({
         message: "You were not verified",
-      })
+      });
     }
-    
   } catch (err) {
     throw new Error(err.message);
   }
 };
 
+const refresh = async (req, res, next) => {
+  try{
+
+  }catch(error){
+    next(error)
+  }
+}
+
 module.exports = {
   register,
   login,
-  verify
+  verify,
 };

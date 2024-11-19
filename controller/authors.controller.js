@@ -56,7 +56,7 @@ const updateAuthor = async (req, res, next) => {
 
     const foundedAuthor = await AuthorsSchemas.findById(id);
     if (!foundedAuthor) {
-      res.json({
+      return res.json({
         message: "Author not founded",
       });
     }
@@ -90,7 +90,7 @@ const deleteAuthor = async (req, res, next) => {
 
     const foundedAuthor = await AuthorsSchemas.findById(id);
     if (!foundedAuthor) {
-      res.json({
+      return res.json({
         message: "Author not founded",
       });
     }
@@ -111,7 +111,7 @@ const getOneAuthors = async (req, res, next) => {
 
     const foundedAuthor = await AuthorsSchemas.findById(id);
     if (!foundedAuthor) {
-      res.json({
+      return res.json({
         message: "Author not founded",
       });
     }

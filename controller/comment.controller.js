@@ -5,21 +5,21 @@ const comment = async (req, res, next) => {
   try {
     const { category, description, like, book_id } = req.body;
     const { token } = req.headers;
-    const foundedBook  = await BooksSchemas.findById(book_id)
-    if(token && foundedBook){
+    const foundedBook = await BooksSchemas.findById(book_id);
+    if (token && foundedBook) {
       await CommentsSchemas.create({
         category,
         description,
         like,
-        book_id
+        book_id,
       });
       res.json({
-        message: "comment added"
-      })
-    }else{
-      res.json({
-        message: "invalid token or not founded book"
-      })
+        message: "comment added",
+      });
+    } else {
+      return res.json({
+        message: "invalid token or not founded book",
+      });
     }
   } catch (error) {
     next(error);
@@ -33,8 +33,9 @@ const getComment = async (req, res, next) => {
   } catch (err) {
     next(err);
   }
-}
+};
 
 module.exports = {
-  comment, getComment
+  comment,
+  getComment,
 };

@@ -24,7 +24,6 @@ const loggerJSON = createLogger({
   format: combine(
     timestamp({ format: "YYYY-MM-DD HH:mm:ss" }), 
     myFormat,
-    colorize({all: true})
   ),
   transports: [
     new transports.Console(),

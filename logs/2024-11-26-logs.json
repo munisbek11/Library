@@ -1,0 +1,100 @@
+{
+    "level": "info",
+    "message": "loggerjson info",
+    "timestamp": "2024-11-26 08:22:13"
+}
+{
+    "level": "info",
+    "message": "loggerjson info",
+    "timestamp": "2024-11-26 08:22:14"
+}
+{
+    "level": "info",
+    "message": "loggerjson info",
+    "timestamp": "2024-11-26 08:22:17"
+}
+{
+    "level": "info",
+    "message": "loggerjson info",
+    "timestamp": "2024-11-26 08:22:42"
+}
+{
+    "level": "info",
+    "message": "loggerjson info",
+    "timestamp": "2024-11-26 08:23:22"
+}
+{
+    "level": "error",
+    "message": "loggerJson error",
+    "timestamp": "2024-11-26 08:23:22"
+}
+{
+    "level": "info",
+    "message": "loggerjson info",
+    "timestamp": "2024-11-26 08:23:24"
+}
+{
+    "level": "error",
+    "message": "loggerJson error",
+    "timestamp": "2024-11-26 08:23:24"
+}
+{
+    "level": "info",
+    "message": "loggerjson info",
+    "timestamp": "2024-11-26 08:23:32"
+}
+{
+    "level": "error",
+    "message": "loggerJson error",
+    "timestamp": "2024-11-26 08:23:32"
+}
+{
+    "level": "info",
+    "message": "loggerjson info",
+    "timestamp": "2024-11-26 08:25:43"
+}
+{
+    "level": "error",
+    "message": "loggerJson error",
+    "timestamp": "2024-11-26 08:25:43"
+}
+{
+    "level": "info",
+    "message": "loggerjson info",
+    "timestamp": "2024-11-26 08:25:48"
+}
+{
+    "level": "error",
+    "message": "loggerJson error",
+    "timestamp": "2024-11-26 08:25:48"
+}
+{
+    "message": "loggerjson info",
+    "level": "info",
+    "timestamp": "2024-11-26 08:26:08"
+}
+{
+    "message": "loggerJson error",
+    "level": "error",
+    "timestamp": "2024-11-26 08:26:08"
+}
+{
+    "message": "loggerjson info",
+    "level": "info",
+    "timestamp": "2024-11-26 08:26:12"
+}
+{
+    "message": "loggerJson error",
+    "level": "error",
+    "timestamp": "2024-11-26 08:26:12"
+}
+{
+    "level": "\u001b[32minfo\u001b[39m",
+    "message": "\u001b[32mloggerjson info\u001b[39m",
+    "timestamp": "2024-11-26 08:27:16"
+}
+{
+    "level": "\u001b[31merror\u001b[39m",
+    "message": "\u001b[31mloggerJson error\u001b[39m",
+    "timestamp": "2024-11-26 08:27:16"
+}
